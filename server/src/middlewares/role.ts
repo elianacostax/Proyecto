@@ -5,13 +5,13 @@ import { AppDataSource } from "../data-source"
 export const checkRole = (roles:Array<string>) => {
 
     return async (req: Request, res: Response, next: NextFunction) => {
-        const {userId} = res.locals.jwtPayload;
+        const {id} = res.locals.jwtPayload;
         const userRepository = AppDataSource.getRepository(User);
 
         let user: User;
 
         try {
-            user = await userRepository.findOneBy(userId)
+            user = await userRepository.findOneBy(id)
         } catch (e) {
             return res.status(401).json({message: 'No autorizado' })
         }
